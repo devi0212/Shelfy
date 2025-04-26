@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Home - Shelfy{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>SHELFY <br>
+    <small style="font-size: 1rem; color: #999;">Your personal digital bookshelf</small>
+  </h1>
+
+  <form method="POST" class="search-form" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+    <input type="text" name="search" placeholder="Search books..." class="search-input"
+           style="padding: 10px; width: 60%; border-radius: 6px; border: none;">
+    <button type="submit"
+            style="padding: 6px 10px; font-size: 16px; border-radius: 6px; background: #8f94fb; color: white; border: none; cursor: pointer;">
+      🔍
+    </button>
+  </form>
+  
+  
+  {% for book in books %}
+    <div class="book-card">
+      <h4>{{ book[1] }}</h4>
+      <p><strong>Author:</strong> {{ book[2] }}</p>
+      <p><strong>Genres:</strong></p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
+        {% if book[3] %}
+          {% for genre in book[3].replace(';', ',').split(',') %}
+            <span style="background: #f3e5f5; color: #6a1b9a; padding: 4px 8px; border-radius: 12px; font-size: 14px;">
+              {{ genre.strip() }}
+            </span>
+         {% endfor %}
+        {% else %}
+          <span style="font-style: italic; color: gray;">No genres available</span>
+        {% endif %}
+      </div> 
+      <p><strong>Rating:</strong> {{ book[4] }}</p>
+      <p><strong>ISBN:</strong> {{ book[5] }}</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px;">
+        <form method="POST" action="/update_status" style="display: inline;">
+          <input type="hidden" name="book_id" value="{{ book[0] }}">
+          <button type="submit" name="status" value="Want to Read" title="Want to Read" style="border: none; background: none; font-size: 1.2rem;">📘</button>
+          <button type="submit" name="status" value="Reading" title="Reading" style="border: none; background: none; font-size: 1.2rem;">📖</button>
+          <button type="submit" name="status" value="Read" title="Read" style="border: none; background: none; font-size: 1.2rem;">✅</button>
+        </form>
+
+        {% if session.get('user_id') %}
+        <div class="review-actions">
+          <button type="button" onclick="toggleRating('{{ book[0] }}')">⭐ Rate</button>
+          <button type="button" onclick="toggleReview('{{ book[0] }}')">💬 Review</button>
+
+          <!-- Rating Form -->
+          <form method="POST" action="/submit_review" id="rate-form-{{ book[0] }}" style="display:none; margin-top: 8px;">
+            <input type="hidden" name="book_id" value="{{ book[0] }}">
+            <div class="stars" id="stars-{{ book[0] }}">
+              {% for i in range(1, 6) %}
+                <span class="star" data-value="{{ i }}" onclick="setRating('{{ book[0] }}', {{ i }})">☆</span>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="rating" id="rating-input-{{ book[0] }}">
+            <button type="submit" class="btn btn-sm" style="margin-top: 5px;">Submit</button>
+          </form>
+
+          <!-- Review Form -->
+          <form method="POST" action="/submit_review" id="review-form-{{ book[0] }}" style="display:none; margin-top: 8px;">
+            <input type="hidden" name="book_id" value="{{ book[0] }}">
+            <textarea name="review" placeholder="Write your review..." required style="width: 100%; border-radius: 6px; padding: 6px;"></textarea>
+            <button type="submit" class="btn btn-sm" style="margin-top: 5px;">Submit</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  function toggleRating(bookId) {
+    const form = document.getElementById('rate-form-' + bookId);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function toggleReview(bookId) {
+    const form = document.getElementById('review-form-' + bookId);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function setRating(bookId, value) {
+    const stars = document.querySelectorAll('#stars-' + bookId + ' .star');
+    stars.forEach((star, idx) => {
+      star.textContent = idx < value ? '★' : '☆';
+    });
+    document.getElementById('rating-input-' + bookId).value = value;
+  }
+</script>
+{% endblock %}
+
+

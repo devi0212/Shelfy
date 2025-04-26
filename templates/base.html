@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Book App{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+      <a href="/home">🏠 Home</a>
+      <a href="/filter">✨ Filter</a>
+      <a href="/reading_list">📚 My List</a>
+      <a href="/my_reviews">📝 My Reviews</a>
+      <a href="/recommend">💡 Recommender</a>
+      
+      {% if 'user_id' in session %}
+        <span>👤 <strong>{{ session['username'] }}</strong></span>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      {% endif %}
+    
+  </nav>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,253 @@
+/* GENERAL LAYOUT & FONT */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* TYPOGRAPHY */
+h1, h2, h3 {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* NAVIGATION BAR */
+nav {
+  background: white;
+  padding: 15px 25px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-weight: 600;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* BOOK CARD STYLE */
+.book-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* FORMS */
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 60%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+select {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid #ccc;
+}
+
+/* BUTTONS */
+button,
+form button {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, opacity 0.3s;
+}
+
+button:hover,
+form button:hover {
+  background: linear-gradient(to right, #5f66e6, #a6abff);
+  opacity: 0.9;
+}
+select[name="genre"] {
+  width: 200px;
+  font-size: 14px;
+  padding: 6px 8px;
+}
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2); /* optional override */
+}
+
+.auth-box {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-box h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-box input[type="text"],
+.auth-box input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.auth-box button {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-box button:hover {
+  opacity: 0.95;
+}
+
+.auth-box p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.auth-box a {
+  color: #3b49df;
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* full viewport height */
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee); /* optional matching bg */
+}
+
+.form-container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 500;
+}
+
+.btn:hover {
+  opacity: 0.95;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.form-container p {
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.review-buttons {
+  margin-top: 10px;
+}
+
+.review-buttons .btn-outline-primary {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: white;
+  color: #6a11cb;
+  border: 2px solid #6a11cb;
+  font-weight: 500;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.review-buttons .btn-outline-primary:hover {
+  background: #6a11cb;
+  color: white;
+}
+.stars {
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #facc15; /* Tailwind gold-400 */
+}

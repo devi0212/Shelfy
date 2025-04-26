@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SHELFY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 5rem;
+      letter-spacing: 8px;
+      opacity: 0;
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+  </style>
+  <script>
+    setTimeout(() => {
+      document.querySelector('h1').style.animation = 'fadeOut 1s forwards';
+      setTimeout(() => {
+        window.location.href = ('/login');
+      }, 6000);
+    }, 6000); // 3 seconds splash delay
+  </script>
+</head>
+<body>
+  <div style="text-align: center;">
+    <h1 style="margin-bottom: 0;">SHELFY</h1>
+    <small style="font-size: 1rem; color: #999;">Your personal digital bookshelf</small>
+  </div>  
+</body>
+</html>
+

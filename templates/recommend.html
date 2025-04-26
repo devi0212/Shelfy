@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}📖 Recommendations{% endblock %}
+{% block content %}
+<h1>📖 Recommended For You</h1>
+
+{% if recommendations %}
+  {% for book in recommendations %}
+    <div class="book-card">
+      <h4>{{ book[1] }}</h4>
+      <p><strong>Genres:</strong> {{ book[2] }}</p>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No recommendations yet. Add books to your reading list first!</p>
+{% endif %}
+{% endblock %}

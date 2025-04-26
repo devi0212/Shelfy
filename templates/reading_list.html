@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}My Reading List{% endblock %}
+{% block content %}
+<h1>📘 My Reading List</h1>
+
+<form method="GET" action="{{ url_for('reading_list') }}" class="search-form">
+  <input type="text" name="search" placeholder="Search reading list..." value="{{ search_query }}" class="search-input">
+  <button type="submit" class="search-button">🔍</button>
+</form>
+
+{% for status, group in reading_list.items() %}
+  <h3>{{ status }}</h3>
+  {% if group %}
+    {% for book in group %}
+      <div class="book-card">
+        <h4>{{ book[1] }}</h4>
+        <p><strong>Author:</strong> {{ book[2] }}</p>
+        <p><strong>Genres:</strong> {{ book[3] }}</p>
+        <p><strong>Rating:</strong> {{ book[4] }}</p>
+        <p><strong>ISBN:</strong> {{ book[5] }}</p>
+        <form method="POST" action="/update_status" class="status-form">
+          <input type="hidden" name="book_id" value="{{ book[0] }}">
+          <button name="status" value="Want to Read" title="Want to Read">📘</button>
+          <button name="status" value="Reading" title="Reading">📖</button>
+          <button name="status" value="Read" title="Read">✅</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No books found in this category.</p>
+  {% endif %}
+{% endfor %}
+{% endblock %}

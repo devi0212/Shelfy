@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🔐 Log In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-wrapper"> <!-- Added wrapper -->
+    <div class="form-container">
+      <h2>🔐 Log In</h2>
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label for="username">👤 Username</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">🔑 Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Log In</button>
+      </form>
+      <p>Don’t have an account? <a href="/signup">Sign up</a></p>
+    </div>
+  </div>
+</body>
+</html>

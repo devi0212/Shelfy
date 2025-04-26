@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Filter Books{% endblock %}
+{% block content %}
+<h1>🔍 Filter Books</h1>
+<form method="POST">
+  <select name="genre">
+    <option value="All">All Genres</option>
+    {% for genre in genres %}
+      <option value="{{ genre }}">{{ genre }}</option>
+    {% endfor %}
+  </select>
+  <select name="rating">
+    <option value="All">All Ratings</option>
+    {% for r in [5, 4, 3, 2, 1] %}
+      <option value="{{ r }}">{{ r }}+</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Apply Filters</button>
+</form>
+
+{% for book in books %}
+  <div class="book-card">
+    <h4>{{ book[1] }}</h4>
+    <p><strong>Author:</strong> {{ book[2] }}</p>
+    <p><strong>Genres:</strong> {{ book[3] }}</p>
+    <p><strong>Rating:</strong> {{ book[4] }}</p>
+    <p><strong>ISBN:</strong> {{ book[5] }}</p>
+    <form method="POST" action="/update_status">
+      <input type="hidden" name="book_id" value="{{ book[0] }}">
+      <button name="status" value="Want to Read">📘</button>
+      <button name="status" value="Reading">📖</button>
+      <button name="status" value="Read">✅</button>
+    </form>
+  </div>
+{% endfor %}
+{% endblock %}
