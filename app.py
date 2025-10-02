@@ -4,7 +4,6 @@ import hashlib
 import os
 
 app = Flask(__name__)
-app.secret_key = 'najunice1234@'
 
 @app.route('/')
 def index():
