@@ -4,14 +4,13 @@ import hashlib
 import os
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'fallback_secret_key')
+app.secret_key = 'najunice1234@'
 
 @app.route('/')
 def index():
     if not session.get('saw_splash'):
         return redirect(url_for('splash'))
 
-    # Splash seen:
     if 'user_id' in session:
         return redirect(url_for('home'))
     return redirect(url_for('login'))
@@ -19,7 +18,6 @@ def index():
 
 @app.route('/splash')
 def splash():
-    # Show splash and set the flag
     session['saw_splash'] = True
     return render_template('splash.html')
 
@@ -56,14 +54,12 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-
-# Logout
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('login'))
 
-# ------------------- Home Page ----------------------
+########################################################
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if 'user_id' not in session:
@@ -82,7 +78,7 @@ def home():
 
     return render_template('home.html', books=books)
 
-# ------------------- Filter Page ----------------------
+########################################################
 @app.route('/filter', methods=['GET', 'POST'])
 def filter_books():
     if 'user_id' not in session:
@@ -111,7 +107,7 @@ def filter_books():
 
     return render_template('filter.html', books=books, genres=genres)
 
-# ------------------- Reading List ----------------------
+#########################################################
 @app.route('/reading_list', methods=['GET'])
 def reading_list():
     if 'user_id' not in session:
@@ -131,7 +127,6 @@ def reading_list():
     cursor.execute(query, (user_id,))
     books = cursor.fetchall()
 
-    # Filter books by search query (title, author, genres)
     if search_query:
         books = [
             book for book in books
@@ -140,7 +135,6 @@ def reading_list():
                search_query in book[3].lower()
         ]
 
-    # Categorize books by status
     categorized = {
         'Want To Read': [],
         'Reading': [],
@@ -156,7 +150,7 @@ def reading_list():
 
     return render_template('reading_list.html', reading_list=categorized, search_query=search_query)
 
-# ------------------- Update Book Status ----------------------
+#################################################################
 @app.route('/update_status', methods=['POST'])
 def update_status():
     if 'user_id' not in session:
@@ -179,7 +173,7 @@ def update_status():
     db.commit()
     return redirect(request.referrer or "{{ url_for('reading_list') }}" )
 
-# ------------------- Recommender ----------------------
+###########################################################
 @app.route('/recommend')
 def recommend():
     if 'user_id' not in session:
@@ -279,6 +273,6 @@ def my_reviews():
 
     return render_template('my_reviews.html', reviews=reviews)
     
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+if __name__ == '__main__':
+    app.run(debug=True)
 
