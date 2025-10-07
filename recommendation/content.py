@@ -10,14 +10,13 @@ def get_content_recommendations(book_id, user_id=None, top_n=5):
     cursor.execute("SELECT book_id, title, genres, author FROM books")
     books = cursor.fetchall()
     df = pd.DataFrame(books, columns=['book_id', 'title', 'genres', 'author'])
-
-    # Preprocessing
+    
     df['genres'] = df['genres'].fillna('')
     df['author'] = df['author'].fillna('')
     df['title'] = df['title'].fillna('')
     df['text'] = (
         df['title'] + ' ' +
-        (df['genres'] + ' ') * 3 +  # boost genre importance
+        (df['genres'] + ' ') * 3 +  
         df['author']
     ).str.lower().str.strip()
 
@@ -28,14 +27,12 @@ def get_content_recommendations(book_id, user_id=None, top_n=5):
     cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     if user_id:
-        # Fetch books the user has reviewed
         cursor.execute("SELECT book_id, rating FROM reviews WHERE user_id = %s", (user_id,))
         user_reviews = cursor.fetchall()
 
         if not user_reviews:
-            return []  # No reviews to base recs on
+            return []  
 
-        # Get similarity for each reviewed book
         score_map = {}
         for reviewed_id, rating in user_reviews:
             try:
@@ -43,7 +40,7 @@ def get_content_recommendations(book_id, user_id=None, top_n=5):
                 sim_scores = list(enumerate(cosine_sim[idx]))
                 for i, score in sim_scores:
                     if df.iloc[i]['book_id'] == reviewed_id:
-                        continue  # Skip the book itself
+                        continue  
                     score_map[i] = score_map.get(i, 0) + score * rating
             except IndexError:
                 continue
@@ -51,7 +48,6 @@ def get_content_recommendations(book_id, user_id=None, top_n=5):
         sorted_scores = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
         top_indices = [i[0] for i in sorted_scores[:top_n]]
     else:
-        # Default: Similar to selected book
         try:
             idx = df.index[df['book_id'] == int(book_id)][0]
         except IndexError:
