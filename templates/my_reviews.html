@@ -8,15 +8,14 @@
   {% if reviews %}
     {% for review in reviews %}
       <div class="bg-white/60 rounded-2xl p-6 mb-6 shadow-md">
-        <!-- Title -->
         <h2 class="text-xl font-bold text-purple-900 mb-1">{{ review[1] }}</h2>
 
-        <!-- Author -->
+      
         {% if review[1] %}
           <p class="text-sm text-gray-700 mb-2 font-medium">by {{ review[2] }}</p>
         {% endif %}
 
-        <!-- Your Rating -->
+      
         {% set user_rating = review[5]|int %}
         <div class="flex items-center text-lg mb-2">
           {% for i in range(1, 6) %}
@@ -28,24 +27,24 @@
           {% endfor %}
         </div>
 
-        <!-- Review Text -->
+      
         {% if review[6] %}
           <p class="italic mb-3 text-gray-800">“{{ review[6] }}”</p>
         {% endif %}
 
-        <!-- Genres -->
+        
         {% if review[2] %}
           <p class="text-sm text-purple-700 mb-2">
             {{ review[2].replace(';', ',') }}
           </p>
         {% endif %}
 
-        <!-- Avg Rating -->
+      
         {% if review[4] %}
           <p class="text-sm text-gray-700 mb-1">Average Rating: {{ review[4] }}</p>
         {% endif %}
 
-        <!-- ISBN -->
+        
         {% if review[3] %}
           <p class="text-xs text-gray-500">Genres: {{ review[3] }}</p>
         {% endif %}
