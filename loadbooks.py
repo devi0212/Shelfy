@@ -19,4 +19,4 @@ for _, row in df.iterrows():
         ))
 
 db.commit()
-print("Books imported successfully without duplicates 💖📚✨")
+print("Books imported successfully without duplicates")
